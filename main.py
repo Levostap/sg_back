@@ -3,6 +3,7 @@ import sqlite3
 
 app = Flask(__name__)
 
+
 def populate_gifts_table():
     conn = sqlite3.connect('gifts.db')
     c = conn.cursor()
@@ -21,6 +22,7 @@ def populate_gifts_table():
 
     conn.commit()
     conn.close()
+
 
 def create_gifts_table():
     conn = sqlite3.connect('gifts.db')
@@ -84,8 +86,12 @@ def get_gifts(category=None, price_range=None, sort_by=None, limit=None):
         sql_query += " WHERE " + " AND ".join(conditions)
 
     c.execute(sql_query, params)
-    gifts = c.fetchall()
+    gifts_list = c.fetchall()
     conn.close()
+    gifts = []
+    meaning = ['id', 'name', 'description', 'category', 'price']
+    for gift in gifts_list:
+        gifts.append(dict(zip(meaning, gift)))
 
     return gifts
 
@@ -100,7 +106,7 @@ def api_get_gifts():
 
     gifts = get_gifts(category, price_range, sort_by, limit)
 
-    return jsonify(gifts)
+    return jsonify(gifts=gifts)
 
 
 def get_gift_by_id(gift_id):
@@ -123,10 +129,6 @@ def api_get_gift_by_id(gift_id):
         return jsonify(gift)
     else:
         return jsonify({'error': 'Gift not found'}), 404
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
 
 
 # Функция для регистрации нового пользователя
@@ -168,7 +170,7 @@ def api_register_user():
 
 
 if __name__ == '__main__':
-    #populate_gifts_table()
+    # populate_gifts_table()
     create_gifts_table()
     create_users_table()
-    app.run(debug=True)
+    app.run(debug=True, host="192.168.120.191")

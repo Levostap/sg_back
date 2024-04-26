@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/sgBackend.iml" filepath="$PROJECT_DIR$/.idea/sgBackend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/sg_back.iml" filepath="$PROJECT_DIR$/.idea/sg_back.iml" />
     </modules>
   </component>
 </project>

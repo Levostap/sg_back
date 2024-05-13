@@ -131,6 +131,20 @@ def api_get_gift_by_id(gift_id):
         return jsonify({'error': 'Gift not found'}), 404
 
 
+
+@app.route('/api/ideas', methods=['GET'])
+def getIdeas():
+    ideas = [
+        {"id": 1, "title": "Книга", "body": "Хорошая книга по интересующей теме"},
+        {"id": 2, "title": "Подписка на стриминговый сервис", "body": "Месячная подписка на Netflix или Spotify"},
+        {"id": 3, "title": "Кофейный абонемент", "body": "Абонемент на кофе в любимом кофейном магазине"},
+        {"id": 4, "title": "Подарочный сертификат в кафе или ресторан",
+         "body": "Вечер ужина в ресторане или уютное кафе"},
+        {"id": 5, "title": "Уникальные кулинарные инструменты", "body": "Набор для приготовления суши или фондю"},
+        {"id": 6, "title": "Путешествие", "body": "Короткое путешествие в ближайший город или курорт"},
+    ]
+    return jsonify(ideas)
+
 # Функция для регистрации нового пользователя
 def register_user(username, password, email, name):
     conn = sqlite3.connect('users.db')
@@ -173,4 +187,4 @@ if __name__ == '__main__':
     # populate_gifts_table()
     create_gifts_table()
     create_users_table()
-    app.run(debug=True, host="192.168.255.191")
+    app.run(debug=True, host="0.0.0.0")
